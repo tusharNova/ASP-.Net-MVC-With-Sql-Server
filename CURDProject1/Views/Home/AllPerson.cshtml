@@ -1,3 +1,41 @@
-﻿@{
+﻿@using CURDProject1.Models
+
+@{
     ViewData["Title"] = "All Person";
 }
+
+<div class="container">
+    <div class="text-center h4" >List Of person</div>
+    <hr />
+    <table width="100%" class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>
+                    <a asp-action="Index" class="btn btn-sm btn-success"><i class="fa-solid fa-plus"></i> New </a>
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Mobile</td>
+                    <td>@item.Address</td>
+                    <td>@item.City</td>
+                    <td>
+                        <a asp-action="Index" asp-route-id="@item.Id" class="btn btn-sm btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a asp-action="Index" asp-route-id="@item.Id" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+</tr>
+            }
+            </tbody>
+    </table>
+</div>
