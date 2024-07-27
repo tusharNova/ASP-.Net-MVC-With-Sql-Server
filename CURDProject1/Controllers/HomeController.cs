@@ -29,7 +29,7 @@ namespace CURDProject1.Controllers
 			cmd.CommandText = "Insert into values(null,' " + p.Name + "','" + p.Mobile + "' ,'" + p.Address + "' ,'" + p.City + "')";
 			res = cmd.ExecuteReader();
 			sqlconnection.Close();
-			return View();
+			return Json(new {massge = "Data received successfully" });
 		}
 		public IActionResult AllPerson()
 		{
