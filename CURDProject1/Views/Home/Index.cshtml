@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm border border-dark">
+        <div>
+            <h3> Enter Name</h3>
+            <input class="form-control" type="text" id="txtName" />
+        </div>
+        <div>
+            <h3> Enter Mobile</h3>
+            <input class="form-control" type="text" id="txtMobile" />
+        </div>
+        <div>
+            <h3> Enter Address</h3>
+            <input class="form-control" type="text" id="txtAddress" />
+        </div>
+        <div>
+            <h3> Enter City</h3>
+            <input class="form-control" type="text" id="txtCity" />
+        </div>
+
+        <div class="m-1 text-center">
+            <button class="btn btn-success" id="btnSave">Save</button>
+        </div>
+
+
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $("#btnSave").on("click", function () {
+        var SaveDrawAccidentURL = '@Url.Action("SavePerson", "Home")';
+        $.ajax({
+            cache: false,
+            async: false,
+            type: "POST",
+            url: SaveDrawAccidentURL,
+            data: {
+                Id: 0,
+                Name: $('#txtName').val(),
+                Mobile: $('#txtMobile').val(),
+                Address: $('#txtAddress').val(),
+                City: $('#txtCity').val()
+            },
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+            },
+        });
+    });
+
+</script>
+@* <script type="text/javascript" src="~/js/myScript.js"></script> *@
