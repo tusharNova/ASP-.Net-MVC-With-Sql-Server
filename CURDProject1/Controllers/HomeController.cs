@@ -60,6 +60,16 @@ namespace CURDProject1.Controllers
 			return View(p);
 		}
 
+		public IActionResult UpdatePerson()
+		{
+			return View();
+		}
+		public IActionResult DeletePerson(int id)
+		{
+			return View();
+		}
+
+
 
 		public IActionResult Privacy()
 		{
