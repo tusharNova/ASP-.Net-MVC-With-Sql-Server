@@ -60,15 +60,25 @@ namespace CURDProject1.Controllers
 			return View(p);
 		}
 
-		public IActionResult UpdatePerson()
-		{
-			return View();
-		}
 		public IActionResult DeletePerson(int id)
 		{
+			SqlConnection sqlConnection = new SqlConnection();
+			sqlConnection.ConnectionString = "Server=DESKTOP-UAD5JOD;Database=dbtest1;Trusted_Connection=True;MultipleActiveResultSets=True;Encrypt=False";
+			sqlConnection.Open();
+			SqlCommand cmd = new SqlCommand();
+			cmd = sqlConnection.CreateCommand();
+			cmd.CommandText = "DELETE FROM personTable WHERE id = "+id.ToString();
+			SqlDataReader res;
+			res = cmd.ExecuteReader();
+			sqlConnection.Close();	
+
 			return View();
 		}
 
+		public IActionResult EditPerson()
+		{
+			return View();
+		}
 
 
 		public IActionResult Privacy()
