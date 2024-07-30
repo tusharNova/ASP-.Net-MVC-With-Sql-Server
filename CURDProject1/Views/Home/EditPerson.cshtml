@@ -1,5 +1,60 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CURDProject1.Models.Person
 @{
 }
+<h1>Edit Person</h1>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm border border-dark p-3">
+        <div>
+            <input type="hidden"  value="@Model.Id" id="personId"/>
+            <h3> Enter Name</h3>
+            <input class="form-control" type="text" id="txtName" autocomplete="off" value="@Model.Name"/>
+        </div>
+        <div>
+            <h3> Enter Mobile</h3>
+            <input class="form-control" type="text" id="txtMobile" autocomplete="off" value="@Model.Mobile" />
+        </div>
+        <div>
+            <h3> Enter Address</h3>
+            <input class="form-control" type="text" id="txtAddress" autocomplete="off" value="@Model.Address " />
+        </div>
+        <div>
+            <h3> Enter City</h3>
+            <input class="form-control" type="text" id="txtCity" autocomplete="off" value="@Model.City"/>
+        </div>
+
+        <div class="mt-4 text-center">
+            <button class="btn btn-success" id="btnEdit">Edit</button>
+            <a class="btn btn-secondary" asp-action="AllPerson">View list</a>
+        </div>
+
+
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $("#btnEdit").on("click", function () {
+        var id = $('#personId').val()
+        //alert(id)
+        var SaveDrawAccidentURL = '@Url.Action("EditPersonCode", "Home")';
+        $.ajax({
+            cache: false,
+            async: false,
+            type: "POST",
+            url: SaveDrawAccidentURL,
+            data: {
+                Id: id,
+                Name: $('#txtName').val(),
+                Mobile: $('#txtMobile').val(),
+                Address: $('#txtAddress').val(),
+                City: $('#txtCity').val()
+            },
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+            },
+        });
+    });
+
+</script>

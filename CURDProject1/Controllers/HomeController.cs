@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 namespace CURDProject1.Controllers
 {
@@ -75,11 +76,38 @@ namespace CURDProject1.Controllers
 			return View();
 		}
 
-		public IActionResult EditPerson()
+		public IActionResult EditPerson(int id)
 		{
-			return View();
+			SqlConnection sqlconnection = new SqlConnection();
+			sqlconnection.ConnectionString = "Server=DESKTOP-UAD5JOD;Database=dbtest1;Trusted_Connection=True;MultipleActiveResultSets=True;Encrypt=False";
+			sqlconnection.Open();
+			SqlCommand cmd = new SqlCommand();
+			cmd = sqlconnection.CreateCommand();
+			SqlDataReader res;
+			cmd.CommandText = "select * from personTable WHERE id="+id;
+			res = cmd.ExecuteReader();
+			DataTable dt = new DataTable();
+			dt.Load(res);
+			sqlconnection.Close();
+
+			Person p = new Person();
+
+			if (dt.Rows.Count > 0)
+			{
+				p.Id = Convert.ToInt32(dt.Rows[0]["id"].ToString());
+				p.Name = dt.Rows[0]["Name"].ToString();
+				p.Mobile = dt.Rows[0]["Mobile"].ToString();
+				p.Address = dt.Rows[0]["Address"].ToString();
+				p.City = dt.Rows[0]["City"].ToString();
+			}
+
+			return View(p);
 		}
 
+		public IActionResult EditPersnCode(Person p)
+		{
+			return View(); 
+		}
 
 		public IActionResult Privacy()
 		{
