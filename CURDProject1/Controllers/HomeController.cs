@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace CURDProject1.Controllers
 {
@@ -31,7 +30,7 @@ namespace CURDProject1.Controllers
 			cmd.CommandText = "INSERT INTO personTable(Name,Mobile,Address ,City ) VALUES(' " + p.Name + "','" + p.Mobile + "' ,'" + p.Address + "' ,'" + p.City + "')";
 			res = cmd.ExecuteReader();
 			sqlconnection.Close();
-			return Json(new {massge = "Data received successfully" });
+			return Json(new { massge = "Data received successfully" });
 		}
 		public IActionResult AllPerson()
 		{
@@ -68,10 +67,10 @@ namespace CURDProject1.Controllers
 			sqlConnection.Open();
 			SqlCommand cmd = new SqlCommand();
 			cmd = sqlConnection.CreateCommand();
-			cmd.CommandText = "DELETE FROM personTable WHERE id = "+id.ToString();
+			cmd.CommandText = "DELETE FROM personTable WHERE id = " + id.ToString();
 			SqlDataReader res;
 			res = cmd.ExecuteReader();
-			sqlConnection.Close();	
+			sqlConnection.Close();
 
 			return View();
 		}
@@ -84,7 +83,7 @@ namespace CURDProject1.Controllers
 			SqlCommand cmd = new SqlCommand();
 			cmd = sqlconnection.CreateCommand();
 			SqlDataReader res;
-			cmd.CommandText = "select * from personTable WHERE id="+id;
+			cmd.CommandText = "select * from personTable WHERE id=" + id;
 			res = cmd.ExecuteReader();
 			DataTable dt = new DataTable();
 			dt.Load(res);
@@ -104,9 +103,17 @@ namespace CURDProject1.Controllers
 			return View(p);
 		}
 
-		public IActionResult EditPersnCode(Person p)
+		public IActionResult EditPersonCode(Person p)
 		{
-			return View(); 
+			SqlConnection sqlConn = new SqlConnection();
+			sqlConn.ConnectionString = "Server=DESKTOP-UAD5JOD;Database=dbtest1;Trusted_Connection=True;MultipleActiveResultSets=True;Encrypt=False";
+			sqlConn.Open();
+			SqlCommand cmd = new SqlCommand();
+			cmd.CommandText = "Update personTable set Name = '" + p.Name + "' , Mobile = '" + p.Mobile + "' , Address = '" + p.Address + "' , City = '" + p.City + "' where id=" + p.Id;
+			SqlDataReader res;
+			res = cmd.ExecuteReader();
+			sqlConn.Close();
+			return View();
 		}
 
 		public IActionResult Privacy()
